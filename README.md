@@ -1,14 +1,64 @@
-# React + Vite
+# Currency Converter (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React + Vite app that converts currencies using the **ExchangeRate-API** service.
 
-Currently, two official plugins are available:
+## ✅ What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Pick a **source currency** and a **target currency**
+- Fetches live exchange rates from ExchangeRate-API
+- Converts an entered amount from one currency to another
+- Includes a **swap button** for swapping "from" and "to" currencies
 
-## Expanding the ESLint configuration
+## 🧩 Key files
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `src/App.jsx` – main UI + conversion logic
+- `src/components/InputBox.jsx` – reusable amount + currency selector
+- `src/hooks/useCurrencyInfo.js` – fetches rates from the API
+- `.env` – holds the API key used by Vite
 
-let url = `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`
+## 🚀 Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the URL shown in the terminal (example http://localhost:5173).
+
+---
+
+## 🔑 API Key (required)
+
+This app uses **ExchangeRate-API** to fetch currency conversion rates.
+
+### 1) Get an API key
+
+1. Go to: https://www.exchangerate-api.com/
+2. Sign up for a free account
+3. Copy the API key from your dashboard
+
+### 2) Add your API key to the project
+
+Create (or update) `.env` in the project root:
+
+```env
+VITE_EXCHANGE_API_KEY=your_api_key_here
+```
+
+> ✅ Make sure the key name is exactly `VITE_EXCHANGE_API_KEY` (Vite only exposes env vars prefixed with `VITE_`).
+
+### 3) Restart the dev server
+
+If the app was already running, stop and restart it:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🧪 Troubleshooting
+
+- If the app is blank, open the browser console to check for errors (missing API key or API call failure are common).
+- If conversion rates are wrong, verify your API key and check quota limits.
+
