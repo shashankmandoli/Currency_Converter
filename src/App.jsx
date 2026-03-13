@@ -6,7 +6,7 @@ import useCurrencyInfo from './hooks/useCurrencyInfo';
 function App() {
   const [amount, setAmount] = useState("");
   const [from, setFrom] = useState("USD");
-  const [to, setTo] = useState("IND");
+  const [to, setTo] = useState("INR");
   const [convertedAmount, setconvertedAmount] = useState("");
 
   const currencyInfo = useCurrencyInfo(from)
@@ -14,10 +14,17 @@ function App() {
   const options = Object.keys(currencyInfo)
 
   const swap = () => {
-    setFrom(to);
-    setTo(from);
-    setconvertedAmount(amount);
-    setAmount(convertedAmount);
+    if(!amount && convertedAmount){
+      setAmount("0");
+      setconvertedAmount("0");
+    }
+    else{
+      setFrom(to);
+      setTo(from);
+      setconvertedAmount(amount);
+      setAmount(convertedAmount);
+    }
+    
   };
 
   const convert = () => {
@@ -29,13 +36,27 @@ function App() {
   };
 
     return (
-      <div
-        className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
-        style={{
+      <>
+        <div className='flex flex-column'>
+          <div
+            className='w-2/5 bg-no-repeat bg-center bg-cover relative'
+            style={{
+              backgroundImage: `url('https://images.pexels.com/photos/6266698/pexels-photo-6266698.jpeg')`
+            }}
+          >
+          <div>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 transform -rotate-90 text-[rgba(236,236,236,0.8)] text-8xl font-bold tracking-widest"
+            >
+              CURRENCY EXCHANGE
+            </span>
+          </div>
+          </div>
+          <div
+          className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+          style={{
           backgroundImage: `url('https://images.pexels.com/photos/259249/pexels-photo-259249.jpeg')`,
-        }}
-      >
-        <div className="w-full">
+          }}>
+          <div className="w-full">
           <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
             <form
               onSubmit={(e) => { 
@@ -75,9 +96,11 @@ function App() {
                       Convert {from} to {to}
                   </button>
             </form>
+            </div>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
 }
 
